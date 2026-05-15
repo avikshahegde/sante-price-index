@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sante Price Index - Web View</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: #EFEFEF; }
+        .market-yellow { color: #F5C518; }
+        .market-bg-yellow { background-color: #F5C518; }
+        .market-border-yellow { border-color: #F5C518; }
+        .card { background-color: #141414; border: 1px solid #2A2A2A; border-radius: 8px; }
+        .nav-item.active { color: #F5C518; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- App Container (Mobile View Simulation) -->
+    <div class="max-w-md mx-auto w-full flex-grow flex flex-col shadow-2xl bg-black border-x border-zinc-800">
+        
+        <!-- Header -->
+        <header class="p-6">
+            <h1 id="screen-title" class="text-3xl font-black market-yellow tracking-tight">Price Watch</h1>
+            <p id="screen-subtitle" class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Sante Price Index</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="app-content" class="flex-grow p-4 overflow-y-auto">
+            <!-- Content will be injected here -->
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="border-t border-zinc-800 bg-black flex justify-around p-4">
+            <button onclick="showScreen('watch')" class="nav-item flex flex-col items-center gap-1 transition-colors" id="nav-watch">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="text-[10px] font-bold">WATCH</span>
+            </button>
+            <button onclick="showScreen('calc')" class="nav-item flex flex-col items-center gap-1 transition-colors text-zinc-500" id="nav-calc">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="16" y1="10" y2="10"/><line x1="8" x2="16" y1="14" y2="14"/><line x1="8" x2="16" y1="18" y2="18"/></svg>
+                <span class="text-[10px] font-bold">CALC</span>
+            </button>
+            <button onclick="showScreen('board')" class="nav-item flex flex-col items-center gap-1 transition-colors text-zinc-500" id="nav-board">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                <span class="text-[10px] font-bold">BOARD</span>
+            </button>
+            <button onclick="showScreen('trends')" class="nav-item flex flex-col items-center gap-1 transition-colors text-zinc-500" id="nav-trends">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 20-4-4-3 3-4-4-3 3"/><path d="m12 14 2-2 3 2 4-4"/></svg>
+                <span class="text-[10px] font-bold">TRENDS</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        const screens = {
+            watch: {
+                title: "Price Watch",
+                subtitle: "Live Mandi Updates",
+                render: () => `
+                    <div class="space-y-4">
+                        <input type="text" placeholder="Search crops..." class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg text-sm focus:outline-none focus:border-yellow-500">
+                        <div class="space-y-2">
+                            ${[
+                                { crop: 'Tomato', price: '2434.54', market: 'Azadpur' },
+                                { crop: 'Potato', price: '1181.91', market: 'Ghazipur' },
+                                { crop: 'Onion', price: '1650.42', market: 'Okhla' },
+                                { crop: 'Carrot', price: '3222.97', market: 'Azadpur' },
+                                { crop: 'Chilli', price: '4597.87', market: 'Azadpur' }
+                            ].map(item => `
+                                <div class="card p-4 flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold text-lg">${item.crop}</div>
+                                        <div class="text-xs text-zinc-500">${item.market}</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-xl font-black market-yellow">₹${item.price}</div>
+                                        <div class="text-[10px] text-zinc-500">per Quintal</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `
+            },
+            calc: {
+                title: "Profit Calc",
+                subtitle: "Retail Price Strategy",
+                render: () => `
+                    <div class="space-y-6">
+                        <div class="card p-4 space-y-4">
+                            <h3 class="text-xs font-bold market-yellow uppercase">Input Costs (per Quintal)</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-[10px] text-zinc-500 block mb-1">Mandi Purchase Price (₹)</label>
+                                    <input type="number" value="2400" class="w-full bg-zinc-900 border border-zinc-800 p-2 rounded text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-zinc-500 block mb-1">Transport & Loading (₹)</label>
+                                    <input type="number" value="150" class="w-full bg-zinc-900 border border-zinc-800 p-2 rounded text-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-4 space-y-4">
+                            <h3 class="text-xs font-bold market-yellow uppercase">Margins & Wastage</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-[10px] text-zinc-500 block mb-1">Estimated Wastage (%)</label>
+                                    <input type="number" value="5" class="w-full bg-zinc-900 border border-zinc-800 p-2 rounded text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-zinc-500 block mb-1">Profit Margin (%)</label>
+                                    <input type="number" value="20" class="w-full bg-zinc-900 border border-zinc-800 p-2 rounded text-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full market-bg-yellow text-black font-black p-4 rounded-lg shadow-lg active:scale-95 transition-transform">CALCULATE RETAIL PRICE</button>
+                        <div class="card p-6 text-center bg-zinc-900 border-yellow-500/20 border">
+                            <div class="text-xs text-zinc-500 mb-1">Suggested Selling Price</div>
+                            <div class="text-4xl font-black market-yellow">₹32.21 / KG</div>
+                        </div>
+                    </div>
+                `
+            },
+            board: {
+                title: "Price Board",
+                subtitle: "Digital Slate Mode",
+                render: () => `
+                    <div class="bg-black -mx-4 -mt-4 p-4 min-h-full flex flex-col gap-4">
+                        <div class="text-center py-2 border-b-2 market-border-yellow mb-2">
+                            <div class="text-2xl font-black market-yellow tracking-[1em] ml-[1em]">MARKET RATE</div>
+                        </div>
+                        ${[
+                            { crop: 'TOMATO', price: 35 },
+                            { crop: 'POTATO', price: 22 },
+                            { crop: 'ONION', price: 28 },
+                            { crop: 'CHILLI', price: 12 }
+                        ].map(item => `
+                            <div class="border-2 market-border-yellow p-6 flex justify-between items-center rounded-sm">
+                                <span class="text-4xl font-black text-white">${item.crop}</span>
+                                <div class="flex items-baseline">
+                                    <span class="text-7xl font-black market-yellow">₹${item.price}</span>
+                                    <span class="text-xl font-bold market-yellow ml-1">/KG</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `
+            },
+            trends: {
+                title: "Market Trends",
+                subtitle: "Future Projections",
+                render: () => `
+                    <div class="space-y-6">
+                        <div class="card p-6">
+                            <h3 class="text-sm font-bold mb-8">Tomato Price Trend (7 Days)</h3>
+                            <div class="flex items-end justify-between h-40 gap-2">
+                                ${[1800, 1950, 2100, 2050, 2400, 2300, 2500].map((val, i) => `
+                                    <div class="flex-1 flex flex-col items-center gap-2">
+                                        <div class="text-[8px] market-yellow font-bold">₹${val}</div>
+                                        <div class="w-full market-bg-yellow rounded-t" style="height: ${(val/2500)*100}%"></div>
+                                        <div class="text-[10px] text-zinc-500">${['M','T','W','T','F','S','S'][i]}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xs font-bold uppercase market-yellow px-1">Insights</h3>
+                            <div class="card p-4 text-sm leading-relaxed">
+                                Supply shortage detected in neighboring mandis. Prices expected to stay firm for next 48 hours.
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function showScreen(id) {
+            const screen = screens[id];
+            document.getElementById('screen-title').innerText = screen.title;
+            document.getElementById('screen-subtitle').innerText = screen.subtitle;
+            document.getElementById('app-content').innerHTML = screen.render();
+            
+            // Update Nav UI
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active', 'market-yellow'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.add('text-zinc-500'));
+            
+            const activeNav = document.getElementById('nav-' + id);
+            activeNav.classList.remove('text-zinc-500');
+            activeNav.classList.add('active', 'market-yellow');
+        }
+
+        // Init
+        showScreen('watch');
+    </script>
+</body>
+</html>

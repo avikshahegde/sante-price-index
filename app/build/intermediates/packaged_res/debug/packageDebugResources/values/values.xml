@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sante Price Index</string>
+    <style name="Theme.SantePriceIndex" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#0A0A0A</item>
+        <item name="android:windowBackground">#0A0A0A</item>
+    </style>
+</resources>
