@@ -92,3 +92,6 @@ This project is part of a Micro-Finance GenAI development initiative.
 
 ---
 *Developed with ❤️ for the Sante Vendors of the future.*
+<img width="1919" height="1141" alt="Screenshot 2026-05-15 230405" src="https://github.com/user-attachments/assets/363ee194-8300-42a8-a5c7-0d76b2ad33c7" />
+<img width="1919" height="1140" alt="Screenshot 2026-05-15 230350" src="https://github.com/user-attachments/assets/2917ea76-cc9d-4005-9bfb-c7a0429124bd" />
+<img width="1919" height="1140" alt="Screenshot 2026-05-15 230316" src="https://github.com/user-attachments/assets/19e0c671-3156-4bae-88e0-d444d8738bed" />
